@@ -5,9 +5,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users do
         member do
-          patch "deactivate"
-          patch "remove_tag"
-          patch "add_tag"
+          put "deactivate"
+          put "remove_tag"
+          put "add_tag"
         end
       end
       resources :tags

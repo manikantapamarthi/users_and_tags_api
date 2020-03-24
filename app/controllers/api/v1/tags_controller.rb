@@ -4,7 +4,9 @@ class Api::V1::TagsController < ApplicationController
   before_action :set_tag, only: [:update, :destroy]
 
   def index
-    @tags = ActsAsTaggableOn::Tag.all.order("name ASC")
+    sort_order = params[:sort_order] || "asc"
+    @tags = ActsAsTaggableOn::Tag.all.order("name #{sort_order}")
+    @tags = @tags.where("name ILIKE ?", "#{params[:search]}") if params[:search].present?
     render json: @tags
   end
 
